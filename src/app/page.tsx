@@ -49,7 +49,7 @@ export default function Home() {
           </div>
 
           <Card
-            surface="custom"
+           
             className="relative overflow-hidden border-slate-800 bg-slate-950 p-0 text-white shadow-2xl shadow-slate-300"
           >
             <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl" />

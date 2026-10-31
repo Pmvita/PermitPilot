@@ -16,7 +16,7 @@ export function DesktopNav() {
   const pathname = usePathname();
 
   return (
-    <div className="hidden items-center gap-1 rounded-full border border-slate-200/80 bg-slate-50/90 p-1 lg:flex">
+    <nav className="hidden items-center gap-1 lg:flex">
       {links.map((link) => {
         const isActive =
           link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -25,17 +25,17 @@ export function DesktopNav() {
           <Link
             key={link.href}
             href={link.href}
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+            className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
               isActive
-                ? "bg-white text-slate-950 shadow-sm"
-                : "text-slate-600 hover:bg-white hover:text-slate-950 hover:shadow-sm"
+                ? "bg-[var(--color-bg-subtle)] text-[var(--color-text)]"
+                : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg-subtle)] hover:text-[var(--color-text)]"
             }`}
           >
             {link.label}
           </Link>
         );
       })}
-    </div>
+    </nav>
   );
 }
 
@@ -43,7 +43,7 @@ export function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <div className="scrollbar-hide flex gap-2 overflow-x-auto px-4 pb-4 pt-3 lg:hidden">
+    <div className="scrollbar-hide flex gap-2 overflow-x-auto border-t border-[var(--color-border)] px-4 py-2 lg:hidden">
       {links.map((link) => {
         const isActive =
           link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -52,10 +52,10 @@ export function MobileNav() {
           <Link
             key={link.href}
             href={link.href}
-            className={`shrink-0 rounded-full border px-4 py-2 text-sm font-semibold ${
+            className={`shrink-0 rounded-md px-3 py-1.5 text-sm font-medium ${
               isActive
-                ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                : "border-white/70 bg-white/80 text-slate-600"
+                ? "bg-[var(--color-brand)] text-white"
+                : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg-subtle)]"
             }`}
           >
             {link.label}

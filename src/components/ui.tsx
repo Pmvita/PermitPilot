@@ -1,26 +1,17 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { DesktopNav, MobileNav } from "@/components/navigation";
+import { Logo } from "@/components/logo";
 
 type CardProps = {
   children: ReactNode;
   className?: string;
-  surface?: "default" | "custom";
 };
 
-export function Card({
-  children,
-  className = "",
-  surface = "default",
-}: CardProps) {
-  const surfaceClasses =
-    surface === "default"
-      ? "border-slate-200/80 bg-white/90 shadow-slate-200/70"
-      : "";
-
+export function Card({ children, className = "" }: CardProps) {
   return (
     <div
-      className={`rounded-[2rem] border p-6 shadow-sm backdrop-blur-xl transition ${surfaceClasses} ${className}`}
+      className={`rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-[var(--shadow-card)] ${className}`}
     >
       {children}
     </div>
@@ -32,17 +23,18 @@ export function Badge({
   tone = "brand",
 }: {
   children: ReactNode;
-  tone?: "brand" | "dark" | "amber";
+  tone?: "brand" | "dark" | "amber" | "success" | "danger";
 }) {
   const tones = {
-    brand: "border-emerald-200 bg-emerald-50 text-emerald-700",
-    dark: "border-slate-700 bg-slate-900 text-slate-100",
+    brand: "border-[var(--color-border)] bg-[var(--color-bg-subtle)] text-[var(--color-text-secondary)]",
+    dark: "border-[var(--color-brand)] bg-[var(--color-brand)] text-white",
     amber: "border-amber-200 bg-amber-50 text-amber-700",
+    success: "border-green-200 bg-green-50 text-green-700",
+    danger: "border-red-200 bg-red-50 text-red-700",
   };
-
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] ${tones[tone]}`}
+      className={`inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium ${tones[tone]}`}
     >
       {children}
     </span>
@@ -50,15 +42,17 @@ export function Badge({
 }
 
 export function StatusPill({ status }: { status: string }) {
-  const tone = status.includes("Missing")
+  const tone = status.includes("Missing") || status.includes("Missing items")
     ? "border-amber-200 bg-amber-50 text-amber-700"
     : status.includes("Approved") || status.includes("Active")
-      ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-      : "border-blue-200 bg-blue-50 text-blue-700";
+      ? "border-green-200 bg-green-50 text-green-700"
+      : status.includes("Submitted")
+        ? "border-blue-200 bg-blue-50 text-blue-700"
+        : "border-[var(--color-border)] bg-[var(--color-bg-subtle)] text-[var(--color-text-muted)]";
 
   return (
     <span
-      className={`inline-flex min-h-8 items-center justify-center rounded-full border px-3 py-1 text-center text-xs font-bold leading-none ${tone}`}
+      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${tone}`}
     >
       {status}
     </span>
@@ -75,12 +69,14 @@ export function SectionHeading({
   description: string;
 }) {
   return (
-    <div className="mx-auto max-w-3xl text-center">
+    <div className="mx-auto max-w-2xl text-center">
       <Badge>{eyebrow}</Badge>
-      <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+      <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[var(--color-text)]">
         {title}
       </h2>
-      <p className="mt-4 text-lg leading-8 text-slate-600">{description}</p>
+      <p className="mt-3 text-base leading-relaxed text-[var(--color-text-muted)]">
+        {description}
+      </p>
     </div>
   );
 }
@@ -97,13 +93,13 @@ export function PageHeader({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <Badge>{eyebrow}</Badge>
-        <h1 className="mt-5 max-w-4xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+        <h1 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--color-text)] sm:text-3xl">
           {title}
         </h1>
-        <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)]">
           {description}
         </p>
       </div>
@@ -122,13 +118,12 @@ export function MetricCard({
   detail: string;
 }) {
   return (
-    <Card className="group relative overflow-hidden">
-      <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-[3rem] bg-emerald-50 transition group-hover:bg-emerald-100" />
-      <p className="relative text-sm font-medium text-slate-500">{label}</p>
-      <p className="relative mt-3 text-4xl font-bold tracking-tight text-slate-950">
+    <Card>
+      <p className="text-sm font-medium text-[var(--color-text-muted)]">{label}</p>
+      <p className="mt-2 text-3xl font-semibold tracking-tight text-[var(--color-text)]">
         {value}
       </p>
-      <p className="relative mt-2 text-sm font-bold text-emerald-700">
+      <p className="mt-1 text-xs font-medium text-[var(--color-text-subtle)]">
         {detail}
       </p>
     </Card>
@@ -137,9 +132,9 @@ export function MetricCard({
 
 export function ProgressBar({ value }: { value: number }) {
   return (
-    <div className="h-3 overflow-hidden rounded-full bg-slate-100">
+    <div className="h-1.5 overflow-hidden rounded-full bg-[var(--color-bg-subtle)]">
       <div
-        className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400"
+        className="h-full rounded-full bg-[var(--color-brand)] transition-all duration-300"
         style={{ width: `${value}%` }}
       />
     </div>
@@ -157,16 +152,15 @@ export function ActionLink({
 }) {
   const variants = {
     primary:
-      "bg-emerald-600 text-white shadow-lg shadow-emerald-200 hover:bg-emerald-700",
+      "bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]",
     secondary:
-      "border border-slate-300 bg-white text-slate-900 hover:border-slate-950 hover:bg-slate-50",
-    dark: "bg-slate-950 text-white shadow-lg shadow-slate-200 hover:bg-emerald-700",
+      "border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-bg-subtle)]",
+    dark: "bg-[var(--color-brand)] text-white hover:bg-[var(--color-brand-light)]",
   };
-
   return (
     <Link
       href={href}
-      className={`rounded-full px-6 py-3 text-center text-sm font-bold uppercase tracking-[0.18em] transition ${variants[variant]}`}
+      className={`inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${variants[variant]}`}
     >
       {children}
     </Link>
@@ -183,58 +177,47 @@ export function InsightCard({
   description: string;
 }) {
   return (
-    <Card className="group relative overflow-hidden">
-      <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-emerald-100/70 blur-2xl transition group-hover:bg-emerald-200" />
-      <p className="relative text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">
+    <Card>
+      <p className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-subtle)]">
         {label}
       </p>
-      <h3 className="relative mt-4 text-xl font-bold text-slate-950">{title}</h3>
-      <p className="relative mt-3 leading-7 text-slate-600">{description}</p>
+      <h3 className="mt-2 text-base font-semibold text-[var(--color-text)]">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">
+        {description}
+      </p>
     </Card>
   );
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-slate-950">
-      <div className="mx-auto flex min-h-screen max-w-[1500px] flex-col overflow-hidden bg-[radial-gradient(circle_at_top_left,#d1fae5,transparent_28%),linear-gradient(180deg,#f8fafc_0%,#eef6f3_45%,#f8fafc_100%)]">
-        <header className="sticky top-0 z-20 px-4 pt-4 sm:px-6">
-          <nav className="flex items-center justify-between rounded-[2rem] border border-white/70 bg-white/85 px-4 py-3 shadow-sm shadow-slate-200/70 backdrop-blur-xl sm:px-5">
-            <Link href="/" className="flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-700 font-bold text-white shadow-lg shadow-emerald-200">
-                P
-              </span>
-              <span>
-                <span className="block text-sm font-bold uppercase tracking-[0.2em] text-slate-900">
-                  PermitPilot
-                </span>
-                <span className="block text-xs text-slate-500">
-                  Construction admin AI
-                </span>
-              </span>
-            </Link>
-            <DesktopNav />
-            <Link
-              href="/documents"
-              className="rounded-full bg-slate-950 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-slate-200 transition hover:bg-emerald-700"
-            >
-              Generate doc
-            </Link>
-          </nav>
-          <MobileNav />
-        </header>
-        <main className="flex-1">{children}</main>
-        <footer className="px-5 pb-8 sm:px-8">
-          <div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 rounded-[2rem] border border-white/70 bg-white/60 p-5 text-sm text-slate-500 backdrop-blur-xl sm:flex-row sm:items-center">
-            <p>PermitPilot MVP · AI construction admin for contractors</p>
-            <div className="flex gap-4 font-semibold text-slate-600">
-              <Link href="/permits">Permits</Link>
-              <Link href="/documents">Documents</Link>
-              <Link href="/pricing">Pricing</Link>
-            </div>
+    <div className="min-h-screen bg-[var(--color-bg)]">
+      <header className="sticky top-0 z-20 border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+          <Link href="/" className="flex items-center gap-2">
+            <Logo size="sm" />
+          </Link>
+          <DesktopNav />
+          <Link
+            href="/documents"
+            className="rounded-md bg-[var(--color-brand)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-brand-light)]"
+          >
+            Generate doc
+          </Link>
+        </nav>
+        <MobileNav />
+      </header>
+      <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+      <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-sm text-[var(--color-text-muted)] sm:flex-row">
+          <p>PermitPilot · Construction admin for contractors</p>
+          <div className="flex gap-6 font-medium text-[var(--color-text-secondary)]">
+            <Link href="/permits" className="hover:text-[var(--color-text)]">Permits</Link>
+            <Link href="/documents" className="hover:text-[var(--color-text)]">Documents</Link>
+            <Link href="/pricing" className="hover:text-[var(--color-text)]">Pricing</Link>
           </div>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </div>
   );
 }

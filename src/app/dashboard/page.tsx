@@ -21,7 +21,7 @@ export default function DashboardPage() {
             action={
             <Link
               href="/documents"
-              className="rounded-full bg-emerald-600 px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-emerald-200"
+              className="inline-flex items-center justify-center rounded-md bg-[var(--color-brand)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-brand-light)]"
             >
               Generate paperwork
             </Link>
@@ -39,15 +39,12 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          <Card
-            surface="custom"
-            className="mt-8 overflow-hidden border-slate-800 bg-slate-950 text-white shadow-2xl shadow-slate-300"
-          >
+          <Card className="mt-8 overflow-hidden border-[var(--color-border)] bg-[var(--color-brand)] text-white">
             <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.22em] text-emerald-300">
-                  AI briefing
-                </p>
+                <p className="text-sm font-medium text-[var(--color-text-subtle)]">
+                                  AI briefing
+                                </p>
                 <h2 className="mt-3 text-3xl font-bold tracking-tight">
                   Three jobs need admin action before crews stall.
                 </h2>
@@ -60,11 +57,11 @@ export default function DashboardPage() {
                 {["Permit risk", "Cash recovery", "Closeout"].map((item, index) => (
                   <div
                     key={item}
-                    className="rounded-3xl border border-white/10 bg-white/5 p-4"
+                    className="rounded-lg border border-white/20 bg-white/10 p-4"
                   >
-                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
-                      Priority {index + 1}
-                    </p>
+                    <p className="text-xs font-medium text-white/60">
+                                          Priority {index + 1}
+                                        </p>
                     <p className="mt-3 font-semibold text-white">{item}</p>
                   </div>
                 ))}
@@ -78,7 +75,7 @@ export default function DashboardPage() {
                 <h2 className="text-xl font-semibold text-slate-950">
                   Projects that need action
                 </h2>
-                <Link href="/projects" className="text-sm font-semibold text-emerald-700">
+                <Link href="/projects" className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]">
                   View all
                 </Link>
               </div>
@@ -86,7 +83,7 @@ export default function DashboardPage() {
                 {projects.slice(0, 3).map((project) => (
                   <div
                     key={project.name}
-                    className="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5"
+                    className="rounded-lg border border-slate-200 bg-[var(--color-bg-subtle)] p-5"
                   >
                     <div className="flex flex-col justify-between gap-3 sm:flex-row">
                       <div>
@@ -117,7 +114,7 @@ export default function DashboardPage() {
                   {permits.slice(0, 3).map((permit) => (
                     <div
                       key={permit.project}
-                      className="rounded-3xl border border-slate-100 bg-slate-50 p-4"
+                      className="rounded-lg border border-slate-100 bg-slate-50 p-4"
                     >
                       <div className="flex items-center justify-between gap-3">
                         <p className="font-medium text-slate-900">{permit.project}</p>
@@ -138,7 +135,7 @@ export default function DashboardPage() {
                   {invoices.map((invoice) => (
                     <div
                       key={invoice.client}
-                      className="flex items-center justify-between rounded-3xl border border-slate-100 bg-slate-50 p-4"
+                      className="flex items-center justify-between rounded-lg border border-slate-100 bg-slate-50 p-4"
                     >
                       <div>
                         <p className="font-medium text-slate-900">{invoice.client}</p>
@@ -160,7 +157,7 @@ export default function DashboardPage() {
               {subcontractors.map((sub) => (
                 <div
                   key={sub.name}
-                  className="rounded-3xl border border-slate-100 bg-slate-50 p-5"
+                  className="rounded-lg border border-slate-100 bg-slate-50 p-5"
                 >
                   <p className="font-semibold text-slate-950">{sub.name}</p>
                   <p className="mt-1 text-sm text-slate-500">{sub.trade}</p>

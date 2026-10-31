@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { AppShell, Card, SectionHeading } from "@/components/ui";
+import { CheckoutButton } from "@/components/checkout-button";
 
 const plans = [
   {
     name: "Starter",
     price: "$299",
+    priceId: process.env.NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID ?? "price_starter",
     description: "For small contractors proving the workflow.",
     features: ["5 active projects", "Permit checklist templates", "25 AI drafts/month"],
   },
   {
     name: "Growth",
     price: "$799",
+    priceId: process.env.NEXT_PUBLIC_STRIPE_GROWTH_PRICE_ID ?? "price_growth",
     description: "For busy builders with multiple jobs in flight.",
     features: [
       "25 active projects",
@@ -22,6 +25,7 @@ const plans = [
   {
     name: "Pro",
     price: "$1,999",
+    priceId: process.env.NEXT_PUBLIC_STRIPE_PRO_PRICE_ID ?? "price_pro",
     description: "For teams that want admin automation across the company.",
     features: [
       "Unlimited projects",
@@ -45,7 +49,7 @@ export default function PricingPage() {
           {plans.map((plan) => (
             <Card
               key={plan.name}
-              surface={plan.featured ? "custom" : "default"}
+             
               className={
                 plan.featured
                   ? "relative scale-[1.02] border-emerald-300 bg-emerald-50 shadow-xl shadow-emerald-100"
@@ -77,23 +81,18 @@ export default function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/dashboard"
-                className={`mt-7 block rounded-full px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.18em] ${
-                  plan.featured
-                    ? "bg-emerald-600 text-white"
-                    : "border border-slate-300 text-slate-900"
-                }`}
-              >
-                Preview plan
-              </Link>
+              <CheckoutButton
+                priceId={plan.priceId}
+                label="Start paid pilot"
+                featured={plan.featured}
+              />
             </Card>
           ))}
         </div>
 
         <div className="mx-auto mt-10 grid max-w-7xl gap-5 lg:grid-cols-[0.9fr_1.1fr]">
           <Card
-            surface="custom"
+           
             className="border-slate-800 bg-slate-950 text-white shadow-2xl shadow-slate-300"
           >
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-300">
