@@ -22,14 +22,14 @@ export function DocumentActions({
       <button
         type="button"
         onClick={copyBody}
-        className="rounded-full border border-white/20 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-white"
+        className="rounded-full border border-[var(--color-border)] px-5 py-3 text-sm font-bold text-white"
       >
         {copied ? "Copied" : "Copy draft"}
       </button>
       {documentId ? (
         <a
           href={`/api/documents/${documentId}/pdf`}
-          className="rounded-full border border-white/20 px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.18em] text-white"
+          className="rounded-full border border-[var(--color-border)] px-5 py-3 text-center text-sm font-bold text-white"
         >
           Download PDF
         </a>

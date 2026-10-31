@@ -8,7 +8,7 @@ export async function AuthButton() {
     return (
       <Link
         href="/login"
-        className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-900 transition hover:border-slate-950"
+        className="rounded-full border border-[var(--color-border)] bg-white px-4 py-2 text-sm font-bold text-[var(--color-text)] transition hover:border-slate-950"
       >
         Login
       </Link>
@@ -17,7 +17,7 @@ export async function AuthButton() {
 
   return (
     <form action="/auth/signout" method="post">
-      <button className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-900 transition hover:border-slate-950">
+      <button className="rounded-full border border-[var(--color-border)] bg-white px-4 py-2 text-sm font-bold text-[var(--color-text)] transition hover:border-slate-950">
         Sign out
       </button>
     </form>

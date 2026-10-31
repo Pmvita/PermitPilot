@@ -48,7 +48,7 @@ export default function DashboardPage() {
                 <h2 className="mt-3 text-3xl font-bold tracking-tight">
                   Three jobs need admin action before crews stall.
                 </h2>
-                <p className="mt-4 leading-7 text-slate-300">
+                <p className="mt-4 leading-7 text-[var(--color-text-subtle)]">
                   Prioritize missing permit attachments, client approvals on
                   electrical changes, and closeout documentation for occupancy.
                 </p>
@@ -57,7 +57,7 @@ export default function DashboardPage() {
                 {["Permit risk", "Cash recovery", "Closeout"].map((item, index) => (
                   <div
                     key={item}
-                    className="rounded-lg border border-white/20 bg-white/10 p-4"
+                    className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4"
                   >
                     <p className="text-xs font-medium text-white/60">
                                           Priority {index + 1}
@@ -72,7 +72,7 @@ export default function DashboardPage() {
           <div className="mt-8 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
             <Card className="overflow-hidden">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-slate-950">
+                <h2 className="text-xl font-semibold text-[var(--color-text)]">
                   Projects that need action
                 </h2>
                 <Link href="/projects" className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]">
@@ -83,12 +83,12 @@ export default function DashboardPage() {
                 {projects.slice(0, 3).map((project) => (
                   <div
                     key={project.name}
-                    className="rounded-lg border border-slate-200 bg-[var(--color-bg-subtle)] p-5"
+                    className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-5"
                   >
                     <div className="flex flex-col justify-between gap-3 sm:flex-row">
                       <div>
-                        <p className="font-semibold text-slate-950">{project.name}</p>
-                        <p className="text-sm text-slate-500">
+                        <p className="font-semibold text-[var(--color-text)]">{project.name}</p>
+                        <p className="text-sm text-[var(--color-text-muted)]">
                           {project.client} · {project.location}
                         </p>
                       </div>
@@ -97,7 +97,7 @@ export default function DashboardPage() {
                     <div className="mt-4">
                       <ProgressBar value={project.permitProgress} />
                     </div>
-                    <p className="mt-3 text-sm text-slate-600">
+                    <p className="mt-3 text-sm text-[var(--color-text-muted)]">
                       Next: {project.nextAction}
                     </p>
                   </div>
@@ -107,20 +107,20 @@ export default function DashboardPage() {
 
             <div className="grid gap-6">
               <Card>
-                <h2 className="text-xl font-semibold text-slate-950">
+                <h2 className="text-xl font-semibold text-[var(--color-text)]">
                   Permit queue
                 </h2>
                 <div className="mt-4 space-y-3">
                   {permits.slice(0, 3).map((permit) => (
                     <div
                       key={permit.project}
-                      className="rounded-lg border border-slate-100 bg-slate-50 p-4"
+                      className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4"
                     >
                       <div className="flex items-center justify-between gap-3">
-                        <p className="font-medium text-slate-900">{permit.project}</p>
+                        <p className="font-medium text-[var(--color-text)]">{permit.project}</p>
                         <StatusPill status={permit.status} />
                       </div>
-                      <p className="mt-2 text-sm text-slate-500">
+                      <p className="mt-2 text-sm text-[var(--color-text-muted)]">
                         {permit.municipality} · due {permit.dueDate}
                       </p>
                     </div>
@@ -128,20 +128,20 @@ export default function DashboardPage() {
                 </div>
               </Card>
               <Card>
-                <h2 className="text-xl font-semibold text-slate-950">
+                <h2 className="text-xl font-semibold text-[var(--color-text)]">
                   Cash flow watch
                 </h2>
                 <div className="mt-4 space-y-3">
                   {invoices.map((invoice) => (
                     <div
                       key={invoice.client}
-                      className="flex items-center justify-between rounded-lg border border-slate-100 bg-slate-50 p-4"
+                      className="flex items-center justify-between rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4"
                     >
                       <div>
-                        <p className="font-medium text-slate-900">{invoice.client}</p>
-                        <p className="text-sm text-slate-500">{invoice.status}</p>
+                        <p className="font-medium text-[var(--color-text)]">{invoice.client}</p>
+                        <p className="text-sm text-[var(--color-text-muted)]">{invoice.status}</p>
                       </div>
-                      <p className="font-semibold text-slate-950">{invoice.amount}</p>
+                      <p className="font-semibold text-[var(--color-text)]">{invoice.amount}</p>
                     </div>
                   ))}
                 </div>
@@ -150,18 +150,18 @@ export default function DashboardPage() {
           </div>
 
           <Card className="mt-8">
-            <h2 className="text-xl font-semibold text-slate-950">
+            <h2 className="text-xl font-semibold text-[var(--color-text)]">
               Subcontractor coordination
             </h2>
             <div className="mt-4 grid gap-4 md:grid-cols-3">
               {subcontractors.map((sub) => (
                 <div
                   key={sub.name}
-                  className="rounded-lg border border-slate-100 bg-slate-50 p-5"
+                  className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-5"
                 >
-                  <p className="font-semibold text-slate-950">{sub.name}</p>
-                  <p className="mt-1 text-sm text-slate-500">{sub.trade}</p>
-                  <p className="mt-3 text-sm text-slate-700">{sub.project}</p>
+                  <p className="font-semibold text-[var(--color-text)]">{sub.name}</p>
+                  <p className="mt-1 text-sm text-[var(--color-text-muted)]">{sub.trade}</p>
+                  <p className="mt-3 text-sm text-[var(--color-text-secondary)]">{sub.project}</p>
                 </div>
               ))}
             </div>

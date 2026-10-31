@@ -68,7 +68,7 @@ export default function DocumentsPage() {
           <div className="mt-8 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
             <Card>
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-slate-950">
+                <h2 className="text-xl font-semibold text-[var(--color-text)]">
                   Choose a workflow
                 </h2>
                 <Badge tone="amber">Mock AI</Badge>
@@ -83,16 +83,16 @@ export default function DocumentsPage() {
                       setRoughNotes(document.prompt);
                       setGeneratedDocument(null);
                     }}
-                    className={`rounded-3xl border p-5 text-left transition ${
+                    className={`rounded-lg border p-5 text-left transition ${
                       selectedId === document.id
-                        ? "border-emerald-300 bg-emerald-50 shadow-sm shadow-emerald-100"
-                        : "border-slate-200 bg-white hover:border-emerald-200 hover:bg-slate-50"
+                        ? "border-[var(--color-border)] bg-[var(--color-bg-subtle)] shadow-sm shadow-emerald-100"
+                        : "border-[var(--color-border)] bg-white hover:border-[var(--color-border)] hover:bg-[var(--color-bg-subtle)]"
                     }`}
                   >
-                    <span className="block font-semibold text-slate-950">
+                    <span className="block font-semibold text-[var(--color-text)]">
                       {document.name}
                     </span>
-                    <span className="mt-1 block text-sm text-slate-600">
+                    <span className="mt-1 block text-sm text-[var(--color-text-muted)]">
                       {document.description}
                     </span>
                   </button>
@@ -102,50 +102,50 @@ export default function DocumentsPage() {
 
             <Card
              
-              className="relative overflow-hidden border-slate-800 bg-slate-950 text-white shadow-slate-900/20"
+              className="relative overflow-hidden border-[var(--color-border)] bg-[var(--color-brand)] text-white shadow-slate-900/20"
             >
-              <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl" />
+              <div className=" bg-[var(--color-bg-subtle)] " />
               <div className="flex flex-col justify-between gap-5 sm:flex-row">
                 <div>
-                  <p className="text-sm uppercase tracking-[0.22em] text-emerald-300">
+                  <p className="text-sm text-[var(--color-text-subtle)]">
                     {generationMode === "ai" ? "AI generation" : "Document generation"}
                   </p>
                   <h2 className="mt-2 text-3xl font-semibold">
                     {generatedDocument?.title ?? selectedDocument.name}
                   </h2>
                 </div>
-                <span className="relative h-fit rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-slate-200">
+                <span className="relative h-fit rounded-full bg-[var(--color-bg-subtle)] px-4 py-2 text-sm font-semibold text-[var(--color-text-subtle)]">
                   {generationMode === "ai" ? "AI mode" : "Mock fallback ready"}
                 </span>
               </div>
 
               <div className="relative mt-6 grid gap-4 sm:grid-cols-2">
                 <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">
+                  <span className="text-sm font-semibold text-[var(--color-text-subtle)]">
                     Project
                   </span>
                   <input
                     value={projectName}
                     onChange={(event) => setProjectName(event.target.value)}
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none ring-emerald-300/40 focus:ring-4"
+                    className="mt-2 w-full rounded-md border border-[var(--color-border)] bg-[var(--color-bg-subtle)] px-4 py-3 text-white outline-none ring-[var(--color-border)] focus:ring-4"
                   />
                 </label>
                 <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">
+                  <span className="text-sm font-semibold text-[var(--color-text-subtle)]">
                     Client
                   </span>
                   <input
                     value={clientName}
                     onChange={(event) => setClientName(event.target.value)}
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none ring-emerald-300/40 focus:ring-4"
+                    className="mt-2 w-full rounded-md border border-[var(--color-border)] bg-[var(--color-bg-subtle)] px-4 py-3 text-white outline-none ring-[var(--color-border)] focus:ring-4"
                   />
                 </label>
               </div>
 
-              <div className="relative mt-5 rounded-3xl border border-white/10 bg-white/5 p-5">
+              <div className="relative mt-5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-5">
                 <label
                   htmlFor="rough-notes"
-                  className="text-sm font-semibold text-slate-300"
+                  className="text-sm font-semibold text-[var(--color-text-subtle)]"
                 >
                   Contractor note
                 </label>
@@ -154,12 +154,12 @@ export default function DocumentsPage() {
                   value={roughNotes}
                   onChange={(event) => setRoughNotes(event.target.value)}
                   rows={5}
-                  className="mt-3 w-full resize-none rounded-2xl border border-white/10 bg-slate-950/40 p-4 leading-7 text-slate-100 outline-none ring-emerald-300/40 focus:ring-4"
+                  className="mt-3 w-full resize-none rounded-md border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4 leading-7 text-slate-100 outline-none ring-[var(--color-border)] focus:ring-4"
                 />
               </div>
 
-              <div className="relative mt-5 rounded-3xl border border-emerald-300/20 bg-emerald-300/10 p-5">
-                <p className="text-sm font-semibold text-emerald-200">
+              <div className="relative mt-5 rounded-lg border border-[var(--color-border)]/20 bg-[var(--color-bg-subtle)] p-5">
+                <p className="text-sm font-semibold text-[var(--color-text-subtle)]">
                   PermitPilot output
                 </p>
                 <p className="mt-3 leading-7 text-white">
@@ -168,7 +168,7 @@ export default function DocumentsPage() {
                 {generatedDocument ? (
                   <div className="mt-5 grid gap-4 md:grid-cols-2">
                     <div>
-                      <p className="text-sm font-semibold text-emerald-200">
+                      <p className="text-sm font-semibold text-[var(--color-text-subtle)]">
                         Next actions
                       </p>
                       <ul className="mt-2 space-y-2 text-sm text-white">
@@ -178,7 +178,7 @@ export default function DocumentsPage() {
                       </ul>
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-emerald-200">
+                      <p className="text-sm font-semibold text-[var(--color-text-subtle)]">
                         Required inputs
                       </p>
                       <ul className="mt-2 space-y-2 text-sm text-white">
@@ -190,7 +190,7 @@ export default function DocumentsPage() {
                   </div>
                 ) : null}
                 {savedDocumentId ? (
-                  <p className="mt-4 rounded-2xl bg-white/10 p-3 text-sm font-semibold text-emerald-100">
+                  <p className="mt-4 rounded-md bg-[var(--color-bg-subtle)] p-3 text-sm font-semibold text-[var(--color-text-subtle)]">
                     Saved to project documents.
                   </p>
                 ) : null}
@@ -200,13 +200,13 @@ export default function DocumentsPage() {
                 <button
                   onClick={generateDocument}
                   disabled={isGenerating}
-                  className="rounded-full bg-emerald-400 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-slate-950 shadow-lg shadow-emerald-950/30 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-full bg-[var(--color-brand)] px-5 py-3 text-sm font-bold text-[var(--color-text)]  disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isGenerating
                     ? "Generating..."
                     : `Generate ${documentTypeLabels[selectedId as DocumentType]}`}
                 </button>
-                <button className="rounded-full border border-white/20 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-white">
+                <button className="rounded-full border border-[var(--color-border)] px-5 py-3 text-sm font-bold text-white">
                   Save to project
                 </button>
               </div>
@@ -226,8 +226,8 @@ export default function DocumentsPage() {
               ["Future AI", "Ready for Vercel AI SDK structured generation."],
             ].map(([title, copy]) => (
               <Card key={title} className="p-5">
-                <h3 className="font-bold text-slate-950">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{copy}</p>
+                <h3 className="font-bold text-[var(--color-text)]">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">{copy}</p>
               </Card>
             ))}
           </div>

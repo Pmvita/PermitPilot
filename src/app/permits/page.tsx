@@ -31,7 +31,7 @@ export default async function PermitsPage() {
             action={
               <Link
                 href="/permits/new"
-                className="rounded-full bg-emerald-600 px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-700"
+                className="rounded-full bg-[var(--color-brand)] px-5 py-3 text-center text-sm font-bold text-white  transition hover:bg-emerald-700"
               >
                 New permit
               </Link>
@@ -40,14 +40,14 @@ export default async function PermitsPage() {
 
           <Card
            
-            className="mt-8 border-emerald-200 bg-emerald-50/90 shadow-emerald-100"
+            className="mt-8 border-[var(--color-border)] bg-[var(--color-bg-subtle)] shadow-emerald-100"
           >
             <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-700">
+                <p className="text-sm font-bold text-[var(--color-text-muted)]">
                   Submission readiness
                 </p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-emerald-950">
+                <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)]">
                   Two packages can move this week.
                 </h2>
               </div>
@@ -56,7 +56,7 @@ export default async function PermitsPage() {
                   (item) => (
                     <div
                       key={item}
-                      className="rounded-3xl border border-emerald-100 bg-white/70 p-4 font-semibold text-emerald-950"
+                      className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4 font-semibold text-[var(--color-text)]"
                     >
                       {item}
                     </div>
@@ -72,46 +72,46 @@ export default async function PermitsPage() {
                 <div className="grid gap-5 lg:grid-cols-[1fr_0.7fr_0.6fr] lg:items-center">
                   <div>
                     <div className="flex flex-wrap items-center gap-3">
-                      <h2 className="text-2xl font-semibold text-slate-950">
+                      <h2 className="text-2xl font-semibold text-[var(--color-text)]">
                         {permit.permit_type}
                       </h2>
                       <StatusPill status={permit.status} />
                     </div>
-                    <p className="mt-2 text-slate-500">
+                    <p className="mt-2 text-[var(--color-text-muted)]">
                       {permit.municipality}
                     </p>
                   </div>
-                  <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                  <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4">
+                    <p className="text-xs font-semibold text-[var(--color-text-subtle)]">
                       Due date
                     </p>
-                    <p className="mt-2 text-lg font-semibold text-slate-950">
+                    <p className="mt-2 text-lg font-semibold text-[var(--color-text)]">
                       {formatDate(permit.due_date)}
                     </p>
                   </div>
-                  <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                  <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4">
+                    <p className="text-xs font-semibold text-[var(--color-text-subtle)]">
                       Missing items
                     </p>
-                    <p className="mt-2 text-lg font-semibold text-slate-950">
+                    <p className="mt-2 text-lg font-semibold text-[var(--color-text)]">
                       {permit.missing_items.length || "None"}
                     </p>
                   </div>
                 </div>
-                <div className="mt-5 rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5">
-                  <p className="text-sm font-semibold text-slate-900">
+                <div className="mt-5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-5">
+                  <p className="text-sm font-semibold text-[var(--color-text)]">
                     Required next step
                   </p>
                   {permit.missing_items.length > 0 ? (
-                    <ul className="mt-3 grid gap-2 text-sm text-slate-600 sm:grid-cols-2">
+                    <ul className="mt-3 grid gap-2 text-sm text-[var(--color-text-muted)] sm:grid-cols-2">
                       {permit.missing_items.map((item: string) => (
-                        <li key={item} className="rounded-2xl border border-amber-100 bg-amber-50 p-3 font-medium text-amber-900">
+                        <li key={item} className="rounded-md border border-amber-100 bg-amber-50 p-3 font-medium text-amber-900">
                           {item}
                         </li>
                       ))}
                     </ul>
                   ) : (
-                    <p className="mt-3 text-sm text-slate-600">
+                    <p className="mt-3 text-sm text-[var(--color-text-muted)]">
                       No missing requirements detected. Keep monitoring the
                       municipal response timeline.
                     </p>

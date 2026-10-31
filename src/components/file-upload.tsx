@@ -41,16 +41,16 @@ export function FileUpload({ projectId }: { projectId: string }) {
         type="file"
         required
         accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,.xls,.xlsx,.txt"
-        className="rounded-2xl border border-dashed border-slate-300 bg-white p-4 text-sm text-slate-700"
+        className="rounded-md border border-dashed border-slate-300 bg-white p-4 text-sm text-[var(--color-text-secondary)]"
       />
       <button
         disabled={isUploading}
-        className="rounded-full bg-emerald-600 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-white disabled:cursor-not-allowed disabled:opacity-60"
+        className="rounded-full bg-[var(--color-brand)] px-5 py-3 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isUploading ? "Uploading..." : "Upload project file"}
       </button>
       {message ? (
-        <p className="rounded-2xl bg-slate-50 p-3 text-sm font-semibold text-slate-700">
+        <p className="rounded-md bg-[var(--color-bg-subtle)] p-3 text-sm font-semibold text-[var(--color-text-secondary)]">
           {message}
         </p>
       ) : null}

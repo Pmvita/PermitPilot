@@ -42,7 +42,7 @@ export default async function ProjectFilesPage({
           />
           <div className="mt-8 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
             <Card>
-              <h2 className="text-xl font-semibold text-slate-950">
+              <h2 className="text-xl font-semibold text-[var(--color-text)]">
                 Upload file
               </h2>
               <div className="mt-5">
@@ -50,33 +50,33 @@ export default async function ProjectFilesPage({
               </div>
             </Card>
             <Card>
-              <h2 className="text-xl font-semibold text-slate-950">
+              <h2 className="text-xl font-semibold text-[var(--color-text)]">
                 Uploaded files
               </h2>
               <div className="mt-5 grid gap-3">
                 {(files ?? []).map((file) => (
                   <div
                     key={file.id}
-                    className="rounded-3xl border border-slate-100 bg-slate-50 p-4"
+                    className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4"
                   >
-                    <p className="font-semibold text-slate-950">
+                    <p className="font-semibold text-[var(--color-text)]">
                       {file.file_name}
                     </p>
-                    <p className="mt-1 text-sm text-slate-500">
+                    <p className="mt-1 text-sm text-[var(--color-text-muted)]">
                       {file.file_type || "Unknown type"} ·{" "}
                       {formatBytes(file.file_size)}
                     </p>
                   </div>
                 ))}
                 {(files ?? []).length === 0 ? (
-                  <p className="rounded-3xl border border-slate-100 bg-slate-50 p-4 text-sm text-slate-600">
+                  <p className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-muted)]">
                     No files uploaded yet.
                   </p>
                 ) : null}
               </div>
               <Link
                 href="/projects"
-                className="mt-6 inline-flex text-sm font-bold text-emerald-700"
+                className="mt-6 inline-flex text-sm font-bold text-[var(--color-text-muted)]"
               >
                 Back to projects
               </Link>

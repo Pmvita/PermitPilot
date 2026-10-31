@@ -38,8 +38,8 @@ export function CheckoutButton({
     <button
       onClick={handleCheckout}
       disabled={loading}
-      className={`mt-7 block w-full rounded-full px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.18em] disabled:opacity-50 ${
-        featured ? "bg-emerald-600 text-white" : "border border-slate-300 text-slate-900"
+      className={`mt-7 block w-full rounded-full px-5 py-3 text-center text-sm font-bold disabled:opacity-50 ${
+        featured ? "bg-[var(--color-brand)] text-white" : "border border-slate-300 text-[var(--color-text)]"
       }`}
     >
       {loading ? "Loading..." : label}

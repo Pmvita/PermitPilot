@@ -53,7 +53,7 @@ export default async function ProjectsPage() {
             action={
               <Link
                 href="/projects/new"
-                className="rounded-full bg-emerald-600 px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-700"
+                className="rounded-full bg-[var(--color-brand)] px-5 py-3 text-center text-sm font-bold text-white  transition hover:bg-emerald-700"
               >
                 New project
               </Link>
@@ -67,8 +67,8 @@ export default async function ProjectsPage() {
               [`${averageReadiness}%`, "average permit readiness"],
             ].map(([value, label]) => (
               <Card key={label} className="p-5">
-                <p className="text-3xl font-bold text-slate-950">{value}</p>
-                <p className="mt-1 text-sm font-medium text-slate-500">
+                <p className="text-3xl font-bold text-[var(--color-text)]">{value}</p>
+                <p className="mt-1 text-sm font-medium text-[var(--color-text-muted)]">
                   {label}
                 </p>
               </Card>
@@ -80,47 +80,47 @@ export default async function ProjectsPage() {
               <Card key={project.id} className="group overflow-hidden">
                 <div className="flex flex-col justify-between gap-4 sm:flex-row">
                   <div>
-                    <h2 className="text-2xl font-semibold text-slate-950">
+                    <h2 className="text-2xl font-semibold text-[var(--color-text)]">
                       {project.name}
                     </h2>
-                    <p className="mt-1 text-slate-500">
+                    <p className="mt-1 text-[var(--color-text-muted)]">
                       {project.client} · {project.location}
                     </p>
                   </div>
                   <StatusPill status={project.status} />
                 </div>
                 <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                  <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
-                    <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                  <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4">
+                    <p className="text-xs text-[var(--color-text-subtle)]">
                       Type
                     </p>
-                    <p className="mt-2 font-semibold text-slate-900">
+                    <p className="mt-2 font-semibold text-[var(--color-text)]">
                       {project.type ?? "Project"}
                     </p>
                   </div>
-                  <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
-                    <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                  <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4">
+                    <p className="text-xs text-[var(--color-text-subtle)]">
                       Budget
                     </p>
-                    <p className="mt-2 font-semibold text-slate-900">
+                    <p className="mt-2 font-semibold text-[var(--color-text)]">
                       {formatCurrency(project.budget)}
                     </p>
                   </div>
-                  <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
-                    <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                  <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4">
+                    <p className="text-xs text-[var(--color-text-subtle)]">
                       Deadline
                     </p>
-                    <p className="mt-2 font-semibold text-slate-900">
+                    <p className="mt-2 font-semibold text-[var(--color-text)]">
                       {formatDate(project.deadline)}
                     </p>
                   </div>
                 </div>
                 <div className="mt-6">
                   <div className="flex justify-between text-sm">
-                    <span className="font-medium text-slate-700">
+                    <span className="font-medium text-[var(--color-text-secondary)]">
                       Permit readiness
                     </span>
-                    <span className="text-slate-500">
+                    <span className="text-[var(--color-text-muted)]">
                       {project.permit_progress}%
                     </span>
                   </div>
@@ -128,12 +128,12 @@ export default async function ProjectsPage() {
                     <ProgressBar value={project.permit_progress} />
                   </div>
                 </div>
-                <p className="mt-5 rounded-3xl border border-emerald-100 bg-emerald-50 p-4 text-sm font-medium text-emerald-950">
+                <p className="mt-5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4 text-sm font-medium text-[var(--color-text)]">
                   Next action: {project.next_action}
                 </p>
                 <Link
                   href={`/projects/${project.id}/files`}
-                  className="mt-4 inline-flex rounded-full border border-slate-200 px-4 py-2 text-sm font-bold text-slate-900 transition hover:border-emerald-400 hover:text-emerald-700"
+                  className="mt-4 inline-flex rounded-full border border-[var(--color-border)] px-4 py-2 text-sm font-bold text-[var(--color-text)] transition hover:border-emerald-400 hover:text-[var(--color-text-muted)]"
                 >
                   Manage files
                 </Link>

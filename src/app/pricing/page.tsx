@@ -52,30 +52,30 @@ export default function PricingPage() {
              
               className={
                 plan.featured
-                  ? "relative scale-[1.02] border-emerald-300 bg-emerald-50 shadow-xl shadow-emerald-100"
+                  ? "relative scale-[1.02] border-[var(--color-border)] bg-[var(--color-bg-subtle)] "
                   : "hover:-translate-y-1"
               }
             >
               {plan.featured ? (
-                <span className="absolute right-6 top-6 rounded-full bg-emerald-600 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white">
+                <span className="absolute right-6 top-6 rounded-full bg-[var(--color-brand)] px-3 py-1 text-xs font-bold text-white">
                   Best fit
                 </span>
               ) : null}
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">
+              <p className="text-sm font-semibold text-[var(--color-text-muted)]">
                 {plan.name}
               </p>
               <div className="mt-5 flex items-end gap-2">
-                <span className="text-5xl font-semibold text-slate-950">
+                <span className="text-5xl font-semibold text-[var(--color-text)]">
                   {plan.price}
                 </span>
-                <span className="pb-2 text-slate-500">/month</span>
+                <span className="pb-2 text-[var(--color-text-muted)]">/month</span>
               </div>
-              <p className="mt-4 min-h-12 text-slate-600">{plan.description}</p>
-              <ul className="mt-6 space-y-3 text-sm text-slate-700">
+              <p className="mt-4 min-h-12 text-[var(--color-text-muted)]">{plan.description}</p>
+              <ul className="mt-6 space-y-3 text-sm text-[var(--color-text-secondary)]">
                 {plan.features.map((feature) => (
                   <li
                     key={feature}
-                    className="rounded-2xl border border-slate-100 bg-white/80 p-3 font-medium"
+                    className="rounded-md border border-[var(--color-border)] bg-white/80 p-3 font-medium"
                   >
                     {feature}
                   </li>
@@ -93,22 +93,22 @@ export default function PricingPage() {
         <div className="mx-auto mt-10 grid max-w-7xl gap-5 lg:grid-cols-[0.9fr_1.1fr]">
           <Card
            
-            className="border-slate-800 bg-slate-950 text-white shadow-2xl shadow-slate-300"
+            className="border-[var(--color-border)] bg-[var(--color-brand)] text-white "
           >
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-300">
+            <p className="text-sm font-bold text-[var(--color-text-subtle)]">
               Sales angle
             </p>
             <h2 className="mt-4 text-3xl font-bold">
               Sell against lost admin hours, not software features.
             </h2>
-            <p className="mt-4 leading-7 text-slate-300">
+            <p className="mt-4 leading-7 text-[var(--color-text-subtle)]">
               The buyer should feel the math immediately: fewer stalled
               submissions, faster approvals, cleaner change orders, and less
               unpaid work sitting in email threads.
             </p>
           </Card>
           <Card>
-            <h2 className="text-2xl font-bold text-slate-950">
+            <h2 className="text-2xl font-bold text-[var(--color-text)]">
               What the first paid pilot includes
             </h2>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -120,7 +120,7 @@ export default function PricingPage() {
               ].map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-sm font-semibold text-slate-800"
+                  className="rounded-md border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4 text-sm font-semibold text-slate-800"
                 >
                   {item}
                 </div>

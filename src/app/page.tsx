@@ -15,10 +15,10 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
           <div>
             <Badge>Built for contractors</Badge>
-            <h1 className="mt-6 max-w-4xl text-5xl font-bold tracking-tight text-slate-950 sm:text-7xl">
+            <h1 className="mt-6 max-w-4xl text-5xl font-bold tracking-tight text-[var(--color-text)] sm:text-7xl">
               Permit-ready paperwork without the admin chaos.
             </h1>
-            <p className="mt-6 max-w-2xl text-xl leading-9 text-slate-600">
+            <p className="mt-6 max-w-2xl text-xl leading-9 text-[var(--color-text-muted)]">
               PermitPilot helps small and mid-sized contractors track municipal
               requirements, generate RFIs and change orders, and keep projects
               moving without losing hours to admin work.
@@ -37,10 +37,10 @@ export default function Home() {
               ].map(([value, label]) => (
                 <div
                   key={label}
-                  className="rounded-3xl border border-white/70 bg-white/70 p-4 shadow-sm"
+                  className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4 shadow-sm"
                 >
-                  <p className="text-2xl font-bold text-slate-950">{value}</p>
-                  <p className="mt-1 text-sm font-medium text-slate-500">
+                  <p className="text-2xl font-bold text-[var(--color-text)]">{value}</p>
+                  <p className="mt-1 text-sm font-medium text-[var(--color-text-muted)]">
                     {label}
                   </p>
                 </div>
@@ -50,20 +50,20 @@ export default function Home() {
 
           <Card
            
-            className="relative overflow-hidden border-slate-800 bg-slate-950 p-0 text-white shadow-2xl shadow-slate-300"
+            className="relative overflow-hidden border-[var(--color-border)] bg-[var(--color-brand)] p-0 text-white "
           >
-            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl" />
-            <div className="border-b border-white/10 p-6">
+            <div className=" bg-[var(--color-bg-subtle)] " />
+            <div className="border-b border-[var(--color-border)] p-6">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-sm uppercase tracking-[0.22em] text-emerald-300">
+                  <p className="text-sm text-[var(--color-text-subtle)]">
                     Live command center
                   </p>
                   <h2 className="mt-2 text-2xl font-semibold">
                     Riverside Laneway Suite
                   </h2>
                 </div>
-                <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-bold text-emerald-200">
+                <span className="rounded-full bg-[var(--color-bg-subtle)] px-3 py-1 text-xs font-bold text-[var(--color-text-subtle)]">
                   68% ready
                 </span>
               </div>
@@ -72,11 +72,11 @@ export default function Home() {
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-3xl border border-white/10 bg-white/5 p-5"
+                  className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-5"
                 >
-                  <p className="text-sm text-slate-300">{stat.label}</p>
+                  <p className="text-sm text-[var(--color-text-subtle)]">{stat.label}</p>
                   <p className="mt-2 text-3xl font-semibold">{stat.value}</p>
-                  <p className="mt-1 text-sm text-emerald-200">{stat.detail}</p>
+                  <p className="mt-1 text-sm text-[var(--color-text-subtle)]">{stat.detail}</p>
                 </div>
               ))}
             </div>
@@ -97,10 +97,10 @@ export default function Home() {
             ["Project command center", `${projects.length} active sample jobs`],
           ].map(([title, detail]) => (
             <Card key={title}>
-              <h3 className="text-xl font-semibold text-slate-950">{title}</h3>
-              <p className="mt-3 text-slate-600">{detail}</p>
-              <div className="mt-6 h-1.5 rounded-full bg-slate-100">
-                <div className="h-1.5 w-2/3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400" />
+              <h3 className="text-xl font-semibold text-[var(--color-text)]">{title}</h3>
+              <p className="mt-3 text-[var(--color-text-muted)]">{detail}</p>
+              <div className="mt-6 h-1.5 rounded-full bg-[var(--color-bg-subtle)]">
+                <div className="h-1.5 w-2/3 rounded-full bg-[var(--color-brand)]" />
               </div>
             </Card>
           ))}
