@@ -79,7 +79,7 @@ vercel link
 vercel env pull .env.local
 ```
 
-When gateway auth is unavailable locally, `/api/documents/generate` keeps the demo usable with a mock structured output.
+When gateway auth is unavailable locally, `/api/documents/generate` returns a clear 503 "AI unavailable" response instead of silent mock output.
 
 ## Scripts
 
@@ -143,7 +143,7 @@ All exposed tables have RLS enabled and are scoped through `organization_members
 
 The foundation is now functional, but still missing production hardening:
 
-- Stripe billing
+- Stripe billing is wired for paid pilots (checkout → webhook → workspace plan flag).
 - Email notifications
 - Granular role permissions beyond owner/member policies
 - Production AI Gateway configuration through Vercel project linking

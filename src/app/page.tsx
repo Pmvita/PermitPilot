@@ -6,9 +6,42 @@ import {
   InsightCard,
   SectionHeading,
 } from "@/components/ui";
-import { documents, permits, projects, stats } from "@/lib/mock-data";
+import { getCurrentUser } from "@/lib/workspace";
 
-export default function Home() {
+export default async function Home() {
+  const { supabase, user } = await getCurrentUser();
+  let projectCount = 0;
+  let permitCount = 0;
+  let documentCount = 0;
+
+  if (user) {
+    const { data: membership } = await supabase
+      .from("organization_members")
+      .select("organization_id")
+      .eq("user_id", user.id)
+      .limit(1)
+      .maybeSingle();
+
+    if (membership) {
+      const [projectsResult, permitsResult, documentsResult] = await Promise.all([
+        supabase
+          .from("projects")
+          .select("id", { count: "exact", head: true })
+          .eq("organization_id", membership.organization_id),
+        supabase
+          .from("permits")
+          .select("id", { count: "exact", head: true })
+          .eq("organization_id", membership.organization_id),
+        supabase
+          .from("documents")
+          .select("id", { count: "exact", head: true })
+          .eq("organization_id", membership.organization_id),
+      ]);
+      projectCount = projectsResult.count ?? 0;
+      permitCount = permitsResult.count ?? 0;
+      documentCount = documentsResult.count ?? 0;
+    }
+  }
   return (
     <AppShell>
       <section className="overflow-hidden px-5 py-16 sm:px-8 lg:py-24">
@@ -69,14 +102,17 @@ export default function Home() {
               </div>
             </div>
             <div className="grid gap-4 p-6">
-              {stats.map((stat) => (
+              {[
+                ["Active projects", String(projectCount)],
+                ["Permit items due", String(permitCount)],
+                ["Saved documents", String(documentCount)],
+              ].map(([label, value]) => (
                 <div
-                  key={stat.label}
+                  key={label}
                   className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-5"
                 >
-                  <p className="text-sm text-[var(--color-text-subtle)]">{stat.label}</p>
-                  <p className="mt-2 text-3xl font-semibold">{stat.value}</p>
-                  <p className="mt-1 text-sm text-[var(--color-text-subtle)]">{stat.detail}</p>
+                  <p className="text-sm text-[var(--color-text-subtle)]">{label}</p>
+                  <p className="mt-2 text-3xl font-semibold">{value}</p>
                 </div>
               ))}
             </div>
@@ -92,10 +128,10 @@ export default function Home() {
         />
         <div className="mx-auto mt-12 grid max-w-7xl gap-5 md:grid-cols-3">
           {[
-            ["Permit tracker", `${permits.length} live permit packages`],
-            ["Document assistant", `${documents.length} ready templates`],
-            ["Project command center", `${projects.length} active sample jobs`],
-          ].map(([title, detail]) => (
+                      ["Permit tracker", `${permitCount} live permit packages`],
+                      ["Document assistant", `${documentCount} saved documents`],
+                      ["Project command center", `${projectCount} active jobs`],
+                    ].map(([title, detail]) => (
             <Card key={title}>
               <h3 className="text-xl font-semibold text-[var(--color-text)]">{title}</h3>
               <p className="mt-3 text-[var(--color-text-muted)]">{detail}</p>

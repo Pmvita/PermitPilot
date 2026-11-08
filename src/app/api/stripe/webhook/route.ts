@@ -40,14 +40,31 @@ export async function POST(request: Request) {
       if (organizationId) {
         await supabase
           .from("organizations")
-          .update({ /* stripe_customer_id would go here */ })
+          .update({
+            plan: "paid_pilot",
+            stripe_customer_id: session.customer as string | null,
+            stripe_subscription_id: session.subscription as string | null,
+          })
           .eq("id", organizationId);
       }
       break;
     }
-    case "customer.subscription.updated":
+    case "customer.subscription.updated": {
+      const subscription = event.data.object as Stripe.Subscription;
+      const customerId = subscription.customer as string;
+      await supabase
+        .from("organizations")
+        .update({ plan: subscription.status === "active" ? "paid_pilot" : "inactive" })
+        .eq("stripe_customer_id", customerId);
+      break;
+    }
     case "customer.subscription.deleted": {
-      // Handle subscription status changes
+      const subscription = event.data.object as Stripe.Subscription;
+      const customerId = subscription.customer as string;
+      await supabase
+        .from("organizations")
+        .update({ plan: "free", stripe_subscription_id: null })
+        .eq("stripe_customer_id", customerId);
       break;
     }
     default:

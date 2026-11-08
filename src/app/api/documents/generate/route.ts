@@ -3,10 +3,7 @@ import {
   generatedDocumentSchema,
   generateDocumentRequestSchema,
 } from "@/lib/ai/document-schema";
-import {
-  buildDocumentPrompt,
-  createMockDocument,
-} from "@/lib/ai/document-prompts";
+import { buildDocumentPrompt } from "@/lib/ai/document-prompts";
 import { getCurrentUser } from "@/lib/workspace";
 
 export async function POST(request: Request) {
@@ -17,15 +14,20 @@ export async function POST(request: Request) {
     Boolean(process.env.VERCEL_OIDC_TOKEN) ||
     Boolean(process.env.AI_GATEWAY_API_KEY);
 
-  const document = hasGatewayAuth
-    ? (
-        await generateObject({
-          model: "openai/gpt-5.4",
-          schema: generatedDocumentSchema,
-          prompt: buildDocumentPrompt(input),
-        })
-      ).object
-    : createMockDocument(input);
+  if (!hasGatewayAuth) {
+    return Response.json(
+      { error: "AI unavailable", mode: "unavailable" },
+      { status: 503 },
+    );
+  }
+
+  const document = (
+    await generateObject({
+      model: "openai/gpt-5.4",
+      schema: generatedDocumentSchema,
+      prompt: buildDocumentPrompt(input),
+    })
+  ).object;
 
   const { supabase, user } = await getCurrentUser();
   let savedDocumentId: string | null = null;
@@ -48,7 +50,7 @@ export async function POST(request: Request) {
           summary: document.summary,
           body: document.body,
           content: document,
-          generation_mode: hasGatewayAuth ? "ai" : "mock",
+          generation_mode: "ai",
           created_by: user.id,
         })
         .select("id")
@@ -61,9 +63,6 @@ export async function POST(request: Request) {
   return Response.json({
     document,
     savedDocumentId,
-    mode: hasGatewayAuth ? "ai" : "mock",
-    note: hasGatewayAuth
-      ? undefined
-      : "Set up Vercel AI Gateway OIDC locally to enable real generation.",
+    mode: "ai",
   });
 }

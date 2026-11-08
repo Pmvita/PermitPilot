@@ -91,6 +91,9 @@ export type Database = {
           created_by: string;
           created_at: string;
           updated_at: string;
+          plan: string | null;
+          stripe_customer_id: string | null;
+          stripe_subscription_id: string | null;
         };
         Insert: {
           id?: string;
@@ -100,6 +103,9 @@ export type Database = {
           created_by: string;
           created_at?: string;
           updated_at?: string;
+          plan?: string | null;
+          stripe_customer_id?: string | null;
+          stripe_subscription_id?: string | null;
         };
         Update: Partial<Database["public"]["Tables"]["organizations"]["Insert"]>;
       };
