@@ -1,168 +1,98 @@
 # PermitPilot
 
-PermitPilot is an AI construction admin SaaS foundation for contractors. It helps teams turn rough job notes, permit requirements, RFIs, change orders, safety updates, quotes, and client messages into organized, ready-to-send workflows.
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://www.typescriptlang.org)
+[![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%2B%20Auth-3ECF8E?logo=supabase)](https://supabase.com)
+[![Stripe](https://img.shields.io/badge/Stripe-Billing-635BFF?logo=stripe)](https://stripe.com)
 
-The current build now includes real SaaS plumbing: Supabase Auth, contractor workspaces, Postgres persistence with RLS, private file uploads, AI document generation with Vercel AI Gateway fallback behavior, PDF export, and a validation page for contractor discovery.
+PermitPilot is a B2B SaaS for construction contractors that turns messy job notes, permit requirements, RFIs, change orders, and site updates into organized, ready-to-send admin workflows.
 
-## Product Positioning
+![PermitPilot preview](https://placehold.co/1200x630/0f172a/ffffff?text=PermitPilot)
 
-Contractors lose time and money when paperwork lives across email threads, spreadsheets, text messages, PDFs, and disconnected project tools. PermitPilot focuses on the admin layer that blocks work:
+## Why PermitPilot
+
+Contractors lose time and money when paperwork lives across email threads, spreadsheets, texts, PDFs, and disconnected project tools. PermitPilot focuses on the admin layer that blocks work:
 
 - Permit and compliance checklists
-- Missing submission items
-- RFIs and change orders
-- Site notes and client updates
+- Missing submission items and due dates
+- RFIs, change orders, and site notes
 - Invoice and cash-flow visibility
 - Subcontractor coordination
-- AI-generated document drafts with saved document history
+- AI-generated document drafts with saved history
 
-The first product promise is simple: help contractors know what is missing, what needs approval, and what paperwork can be generated next.
+Core promise: help contractors know what is missing, what needs approval, and what paperwork can be generated next.
 
-## MVP Screens
+## Product Surface
 
-- Landing page with product positioning, proof metrics, CTAs, and workflow story
-- Dashboard with project priorities, permit queue, AI briefing, invoices, and subcontractors
-- Projects page with budgets, deadlines, readiness progress, and next actions
-- Permits page with submission status, missing items, due dates, and readiness summary
-- Document assistant with structured AI generation and mock fallback
-- Pricing page with starter, growth, and pro tiers plus paid-pilot framing
-- Validation page with discovery questions, ICP notes, and pricing hypotheses
+- Landing: positioning, proof metrics, and conversion CTAs
+- Dashboard: Supabase-backed project priorities, permit queue, documents, invoices, subcontractors
+- Projects: budgets, deadlines, readiness progress, next actions
+- Permits: submission status, missing items, due dates, readiness summary
+- Document Assistant: structured AI generation with persistent records
+- Pricing: Starter, Growth, and Pro tiers with paid-pilot checkout
+- Validation: discovery questions, ICP notes, and pricing hypotheses
+
+## Documentation
+
+- [Architecture overview](docs/architecture.md)
+- [Project structure](docs/project-structure.md)
+- [Supabase setup](docs/supabase.md)
 
 ## Tech Stack
 
 - Next.js App Router
-- React
-- TypeScript
-- Tailwind CSS
-- Supabase Auth, Postgres, Storage, and RLS
-- Vercel AI SDK through Vercel AI Gateway
-- `pdf-lib` for branded document downloads
-- Reusable UI primitives in `src/components`
+- React 19 + TypeScript
+- Tailwind CSS v4
+- Supabase Auth, Postgres, Storage, RLS
+- Vercel AI SDK / Vercel AI Gateway
+- pdf-lib for branded PDF downloads
+- Stripe for paid pilots
 
 ## Getting Started
 
-Install dependencies:
-
 ```bash
 npm install
-```
-
-Run the development server:
-
-```bash
 npm run dev
 ```
 
-Open `http://localhost:3000`.
-
-Create an account at `/login`, then complete `/onboarding` to create a contractor workspace. The onboarding flow seeds starter records so the dashboard, projects, permits, files, and generated documents have real Supabase data to display.
+Open http://localhost:3000, create an account at /login, then complete /onboarding to create a contractor workspace.
 
 ## Environment
 
-Copy `.env.example` to `.env.local` if needed:
-
-```bash
-cp .env.example .env.local
-```
-
-Configured public Supabase values:
-
-```bash
-NEXT_PUBLIC_SUPABASE_URL=https://yycyhowhsonxzczynbip.supabase.co
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_bLuqznP4jCIyAg45tEW4Mw_Xp6FcwYC
-```
-
-For Vercel AI Gateway, link the project and pull environment values:
-
-```bash
-vercel link
-vercel env pull .env.local
-```
-
-When gateway auth is unavailable locally, `/api/documents/generate` returns a clear 503 "AI unavailable" response instead of silent mock output.
+Copy .env.example to .env.local and configure Supabase, AI Gateway, and Stripe values. See docs/supabase.md.
 
 ## Scripts
 
 ```bash
-npm run dev
-npm run lint
-npm run build
-npm run start
-```
-
-## Project Structure
-
-```text
-src/
-  app/
-    dashboard/
-    documents/
-    login/
-    onboarding/
-    permits/
-    pricing/
-    projects/
-    validation/
-    layout.tsx
-    page.tsx
-  components/
-    document-actions.tsx
-    file-upload.tsx
-    navigation.tsx
-    ui.tsx
-  lib/
-    ai/
-    pdf/
-    supabase/
-    validation/
-    database.types.ts
-    mock-data.ts
+npm run dev        # development server
+npm run lint       # eslint
+npm run typecheck  # tsc --noEmit
+npm run test       # vitest
+npm run build      # production build
+npm run start      # production server
 ```
 
 ## Supabase
 
-The app uses a new Supabase project:
-
-- Project ID: `yycyhowhsonxzczynbip`
-- Region: `ca-central-1`
-- Storage bucket: `project-files`
-- Tables: `profiles`, `organizations`, `organization_members`, `projects`, `permits`, `documents`, `invoices`, `subcontractors`, `project_files`
-
-All exposed tables have RLS enabled and are scoped through `organization_members`.
+- Project ID: yycyhowhsonxzczynbip
+- Region: ca-central-1
+- Storage bucket: project-files
+- RLS enabled on all exposed tables, scoped through organization_members
 
 ## Demo Flow
 
-1. Visit `/login` and create an account.
-2. Complete `/onboarding` to create a contractor organization.
-3. Open `/dashboard` to see Supabase-backed admin priorities.
-4. Open `/documents`, generate a draft, and download the saved PDF.
-5. Open `/projects`, select `Manage files`, and upload a drawing, photo, PDF, or site note.
-6. Open `/validation` during contractor discovery calls.
+1. Visit /login and create an account.
+2. Complete /onboarding to create a contractor organization.
+3. Open /dashboard for Supabase-backed admin priorities.
+4. Open /documents, generate a draft, and download the saved PDF.
+5. Open /projects, select Manage files, and upload a drawing, photo, PDF, or site note.
+6. Open /validation during contractor discovery calls.
 
-## Current Limitations
+## Status
 
-The foundation is now functional, but still missing production hardening:
+PermitPilot is a production-oriented foundation with real SaaS plumbing (auth, workspaces, RLS, uploads, AI docs, PDF export, Stripe webhooks, tests, and CI). Still in active development for deeper CRUD, role permissions, and production AI Gateway configuration.
 
-- Stripe billing is wired for paid pilots (checkout → webhook → workspace plan flag).
-- Email notifications
-- Granular role permissions beyond owner/member policies
-- Production AI Gateway configuration through Vercel project linking
-- Full CRUD forms for every table
-- Contractor-specific template library and approval workflows
+## License
 
-## Recommended Next Milestones
-
-1. Run 15-25 contractor interviews using `/validation`.
-2. Identify the single highest-value workflow contractors will pay for first.
-3. Add focused CRUD for that workflow instead of broad generic project management.
-4. Add Stripe paid pilots once willingness to pay is validated.
-5. Add team invites and permissions for owners, PMs, coordinators, and admins.
-6. Build a template library for repeatable RFIs, change orders, permit checklists, and client updates.
-
-## Figma
-
-The current UI direction is supported by a Figma design file:
-
-https://www.figma.com/design/YctxnTRW0g3wFLAyzIpFXD
-
-It includes the design system and full MVP screen concepts.
+Private - all rights reserved.
